@@ -33,7 +33,7 @@ model Invitados {
   Nights Int
   Tarifa Float
   Total Float?
-  Deposito String?
+  Deposito Boolean @default(false) 
   ModoDePago String?
   Observaciones String?
   createAt DateTime @default(now())

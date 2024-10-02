@@ -15,25 +15,27 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning lang="es">
-      <body className="container mx-auto grid min-h-screen grid-rows-[auto,1fr,auto] bg-background p-5 font-sans">
-        <ThemeProvider
-          disableTransitionOnChange
-          enableSystem
-          attribute="class"
-          defaultTheme="system"
-        >
-          <header className="flex justify-between p-5 text-xl font-bold leading-[4rem]">
-            <Link href="/">App para gestionar invitados</Link>
-            <ModeToggle />
-          </header>
-          <main className="flex gap-5 overflow-auto py-8">
-            <Sidebar />
-            {children}
-          </main>
-          <footer className="text-center leading-[4rem] opacity-70">
-            © {new Date().getFullYear()} crud-test-database
-          </footer>
-        </ThemeProvider>
+      <body>
+        <main className="container mx-auto flex min-h-screen flex-col bg-background p-5 font-sans">
+          <ThemeProvider
+            disableTransitionOnChange
+            enableSystem
+            attribute="class"
+            defaultTheme="system"
+          >
+            <header className="flex justify-between p-5 text-xl font-bold leading-[4rem]">
+              <Link href="/">App para gestionar invitados</Link>
+              <ModeToggle />
+            </header>
+            <main className="flex flex-1 gap-5 overflow-auto py-8">
+              <Sidebar />
+              {children}
+            </main>
+            <footer className="text-center leading-[4rem] opacity-70">
+              © {new Date().getFullYear()} crud-test-database
+            </footer>
+          </ThemeProvider>
+        </main>
       </body>
     </html>
   );

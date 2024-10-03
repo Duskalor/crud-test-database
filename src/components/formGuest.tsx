@@ -23,11 +23,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import prisma from "@/lib/prisma";
 
 export default function FormGuest() {
   const handleform = async (data: FormData) => {
     "use server";
-    console.log(Object.fromEntries(data));
+    const newData = Object.fromEntries(data);
+
+    console.log(newData);
+    // await prisma.invitados.create({
+    //   data: newData,
+    // });
   };
 
   return (
@@ -41,11 +47,11 @@ export default function FormGuest() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">NAME</Label>
-              <Input id="name" name="name" placeholder="Name of your project" />
+              <Input required id="name" name="name" placeholder="Name of your project" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="tipohab">TIPO HAB</Label>
-              <Select name="tipohab">
+              <Select required name="tipohab">
                 <SelectTrigger id="tipohab" name="tipohab">
                   <SelectValue placeholder="Select a option" />
                 </SelectTrigger>
@@ -62,16 +68,41 @@ export default function FormGuest() {
               </Select>
             </div>
             <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="codigo">CODIGO</Label>
+              <Input
+                required
+                id="codigo"
+                min={0}
+                name="codigo"
+                placeholder="write the codigo"
+                type="number"
+              />
+            </div>
+            <div className="flex flex-col space-y-1.5">
               <Label htmlFor="in">IN</Label>
-              <Input id="in" name="in" placeholder="arrive" type="date" />
+              <Input
+                className="justify-center"
+                id="in"
+                name="in"
+                placeholder="arrive"
+                type="date"
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="out">OUT</Label>
-              <Input id="out" name="out" placeholder="out" type="date" />
+              <Input
+                required
+                className="justify-center"
+                id="out"
+                name="out"
+                placeholder="out"
+                type="date"
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="night">NIGHTS</Label>
               <Input
+                required
                 id="night"
                 min={0}
                 name="nights"
@@ -81,7 +112,14 @@ export default function FormGuest() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="tarifa">TARIFA</Label>
-              <Input id="tarifa" min={0} name="tarifa" placeholder="tarifa" type="number" />
+              <Input
+                required
+                id="tarifa"
+                min={0}
+                name="tarifa"
+                placeholder="tarifa"
+                type="number"
+              />
             </div>
 
             <div className="flex flex-col space-y-1.5">

@@ -23,6 +23,7 @@ export async function GuestList() {
         <TableRow className="[&>th]:select-none">
           <TableHead className="w-[100px]">NAMES</TableHead>
           <TableHead>TIPO HAB</TableHead>
+          <TableHead>CODIGO</TableHead>
           <TableHead>IN</TableHead>
           <TableHead>OUT</TableHead>
           <TableHead>NIGHTS</TableHead>
@@ -52,7 +53,7 @@ export async function GuestList() {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={9}>Total</TableCell>
+          <TableCell colSpan={10}>Total</TableCell>
           <TableCell className="text-right">S/{totalGains}</TableCell>
         </TableRow>
       </TableFooter>

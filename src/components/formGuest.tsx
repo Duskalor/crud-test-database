@@ -1,4 +1,3 @@
-import * as React from "react";
 import Link from "next/link";
 
 import {Textarea} from "./ui/textarea";
@@ -23,19 +22,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import prisma from "@/lib/prisma";
+import {handleform} from "@/api";
 
 export default function FormGuest() {
-  const handleform = async (data: FormData) => {
-    "use server";
-    const newData = Object.fromEntries(data);
-
-    console.log(newData);
-    // await prisma.invitados.create({
-    //   data: newData,
-    // });
-  };
-
   return (
     <form action={handleform}>
       <Card className="w-[350px]">

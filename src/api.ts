@@ -21,7 +21,7 @@ export const handleform = async (data: FormData) => {
   try {
     await prisma.invitados.create({
       data: {
-        BodaId: "cm1txvhpd0000zirho5uleoiu",
+        BodaId: "cm1u4uxs7000013vabxjm2k5o",
         name,
         TipoHab,
         Codigo,
@@ -34,9 +34,9 @@ export const handleform = async (data: FormData) => {
         Observaciones,
       },
     });
-
-    redirect("/Guest");
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
+
+  redirect("/Guest");
 };

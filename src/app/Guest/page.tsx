@@ -7,7 +7,7 @@ export default function GuestCrud() {
   return (
     <section className="flex w-full flex-col gap-10">
       <div className="flex w-full justify-end">
-        <Link className={buttonVariants({variant: "secondary"})} href="/Guest/new">
+        <Link className={buttonVariants({variant: "secondary"})} href="/Guest/create">
           New guest
         </Link>
       </div>

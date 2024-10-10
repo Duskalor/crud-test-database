@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {handleform} from "@/api";
+import {handleform} from "@/lib/api.invitados";
 
 export default function FormGuest() {
   return (

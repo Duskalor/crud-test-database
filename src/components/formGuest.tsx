@@ -23,10 +23,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {handleform} from "@/lib/api.invitados";
+import {roomTypes} from "@/lib/const";
 
-export default function FormGuest() {
+export default function FormGuest({id}: {id: string}) {
   return (
     <form action={handleform}>
+      <Input name="BodaId" type="hidden" value={id} />
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Create new guest</CardTitle>
@@ -36,7 +38,7 @@ export default function FormGuest() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">NAME</Label>
-              <Input required id="name" name="name" placeholder="Name of your project" />
+              <Input required id="name" name="name" placeholder="Name of your guest" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="tipohab">TIPO HAB</Label>
@@ -46,12 +48,12 @@ export default function FormGuest() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel className="select-none">Metodos de pago</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                    <SelectLabel className="select-none">Select type of room</SelectLabel>
+                    {roomTypes.map((roomType) => (
+                      <SelectItem key={roomType.value} value={roomType.value}>
+                        {roomType.label}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>

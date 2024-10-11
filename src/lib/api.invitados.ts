@@ -7,6 +7,7 @@ import prisma from "./prisma";
 export const handleform = async (data: FormData) => {
   const newData = Object.fromEntries(data);
 
+  const BodaId = newData.BodaId.toString();
   const name = newData.name.toString();
   const TipoHab = newData.tipohab.toString();
   const Codigo = parseInt(newData.codigo.toString());
@@ -21,7 +22,7 @@ export const handleform = async (data: FormData) => {
   try {
     await prisma.invitados.create({
       data: {
-        BodaId: "cm1u4uxs7000013vabxjm2k5o",
+        BodaId,
         name,
         TipoHab,
         Codigo,

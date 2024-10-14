@@ -16,7 +16,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning lang="es">
       <body>
-        <main className="mx-auto flex min-h-screen flex-col bg-background p-5 font-sans">
+        <main className="mx-auto flex min-h-screen flex-col bg-background px-5 font-sans">
           <ThemeProvider
             disableTransitionOnChange
             enableSystem

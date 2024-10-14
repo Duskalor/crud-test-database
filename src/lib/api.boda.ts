@@ -4,25 +4,30 @@ import {redirect} from "next/navigation";
 import prisma from "./prisma";
 
 export const getBoda = async () => {
-  return await prisma.boda.findMany();
+  const bodas = await prisma.boda.findMany();
+
+  return bodas ? bodas : [];
 };
 
 export const handleform = async (data: FormData) => {
   const newData = Object.fromEntries(data);
 
   const name = newData.name.toString();
+  let id;
 
   try {
-    await prisma.boda.create({
+    const newBoda = await prisma.boda.create({
       data: {
         name,
       },
     });
+
+    id = newBoda.id;
   } catch (error) {
     console.error(error);
   }
 
-  redirect("/Guest");
+  redirect(`/Guest/${id}`);
 };
 
 export const getBodabyId = async (id: string) => {

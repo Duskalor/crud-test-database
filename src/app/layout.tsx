@@ -16,18 +16,18 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning lang="es">
       <body>
-        <main className="container mx-auto flex min-h-screen flex-col bg-background p-5 font-sans">
+        <main className="mx-auto flex min-h-screen flex-col bg-background p-5 font-sans">
           <ThemeProvider
             disableTransitionOnChange
             enableSystem
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
           >
             <header className="flex justify-between p-5 text-xl font-bold leading-[4rem]">
               <Link href="/">App para gestionar invitados</Link>
               <ModeToggle />
             </header>
-            <main className="flex flex-1 gap-5 overflow-auto py-8">
+            <main className="min-w-screen flex w-full flex-1 flex-col gap-5 overflow-x-auto py-8 lg:flex-row">
               <Sidebar />
               {children}
             </main>

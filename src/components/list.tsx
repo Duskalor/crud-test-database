@@ -58,8 +58,8 @@ export function List({guests}: {guests: Invitados[]}) {
             <TableCell className="font-medium">{guest.name}</TableCell>
             <TableCell>{guest.TipoHab}</TableCell>
             <TableCell>{guest.Codigo}</TableCell>
-            <TableCell>{guest.In.toLocaleDateString()}</TableCell>
-            <TableCell>{guest.Out.toLocaleDateString()}</TableCell>
+            <TableCell>{guest.In.toLocaleDateString("es-ES")}</TableCell>
+            <TableCell>{guest.Out.toLocaleDateString("es-ES")}</TableCell>
             <TableCell>{guest.Nights}</TableCell>
             <TableCell>{guest.Tarifa}</TableCell>
             <TableCell>{guest.Total}</TableCell>

@@ -39,5 +39,5 @@ export const handleform = async (data: FormData) => {
     console.error(error);
   }
 
-  redirect("/Guest");
+  redirect(`/Guest/${BodaId}`);
 };

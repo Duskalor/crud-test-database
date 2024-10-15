@@ -27,7 +27,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
               <Link href="/">App para gestionar invitados</Link>
               <ModeToggle />
             </header>
-            <main className="min-w-screen flex w-full flex-1 flex-col gap-5 overflow-x-auto py-8 lg:flex-row">
+            <main className="min-w-screen flex w-full flex-1 flex-col gap-5 overflow-x-auto py-2 lg:flex-row lg:py-5">
               <Sidebar />
               {children}
             </main>

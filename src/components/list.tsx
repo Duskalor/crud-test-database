@@ -15,22 +15,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {cn} from "@/lib/utils";
+import {sortBy} from "@/lib/sort";
 
 enum Action {
-  NAMES,
-  TIPOHAB,
-  CODIGO,
-  IN,
-  OUT,
-  NIGHTS,
-  TARIFA,
-  TOTAL,
-  DEPOSIT,
-  MODODEPAGO,
+  NAMES = "name",
+  TIPOHAB = "TipoHab",
+  CODIGO = "Codigo",
+  IN = "In",
+  OUT = "Out",
+  NIGHTS = "Nights",
+  TARIFA = "Tarifa",
+  TOTAL = "Total",
+  DEPOSIT = "Deposito",
+  MODODEPAGO = "ModoDePago",
 }
 
 export function List({guests}: {guests: Invitados[]}) {
-  const [sorted, setsorted] = useState(false);
+  const [sorted, setSorted] = useState<Action | null>(null);
+
+  const sortedGuests = sortBy([...guests], sorted);
+
   const totalGains = guests.reduce((acc, n) => acc + (n?.Total ?? 0), 0);
 
   return (
@@ -38,22 +42,26 @@ export function List({guests}: {guests: Invitados[]}) {
       <TableCaption>A list of your recent guest.</TableCaption>
       <TableHeader>
         <TableRow className="[&>th]:cursor-pointer [&>th]:select-none">
-          <TableHead className="w-[100px]">NAMES</TableHead>
-          <TableHead>TIPO HAB</TableHead>
-          <TableHead>CODIGO</TableHead>
-          <TableHead>IN</TableHead>
-          <TableHead>OUT</TableHead>
-          <TableHead>NIGHTS</TableHead>
-          <TableHead>TARIFA</TableHead>
-          <TableHead>TOTAL</TableHead>
-          <TableHead>DEPOSIT</TableHead>
-          <TableHead>MODO DEPAGO</TableHead>
+          <TableHead className="w-[100px]" onClick={() => setSorted(sorted ? null : Action.NAMES)}>
+            NAMES
+          </TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.TIPOHAB)}>TIPO HAB</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.CODIGO)}>CODIGO</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.IN)}>IN</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.OUT)}>OUT</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.NIGHTS)}>NIGHTS</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.TARIFA)}>TARIFA</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.TOTAL)}>TOTAL</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.DEPOSIT)}>DEPOSIT</TableHead>
+          <TableHead onClick={() => setSorted(sorted ? null : Action.MODODEPAGO)}>
+            MODO DEPAGO
+          </TableHead>
           <TableHead>OBSERVACIONES</TableHead>
           <TableHead className="text-right">ACCIONES</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {guests.map((guest) => (
+        {sortedGuests.map((guest) => (
           <TableRow key={guest.id}>
             <TableCell className="font-medium">{guest.name}</TableCell>
             <TableCell>{guest.TipoHab}</TableCell>

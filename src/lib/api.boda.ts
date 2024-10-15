@@ -9,7 +9,7 @@ export const getBoda = async () => {
   return bodas ? bodas : [];
 };
 
-export const handleform = async (data: FormData) => {
+export const handleformBoda = async (data: FormData) => {
   const newData = Object.fromEntries(data);
 
   const name = newData.name.toString();

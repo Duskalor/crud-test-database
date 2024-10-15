@@ -16,7 +16,7 @@ import {Button} from "./ui/button";
 
 export function BodaList({bodas}: {bodas: Boda[]}) {
   return (
-    <Table className="w-1/2">
+    <Table className="w-4/12">
       <TableCaption>A list of your recent bodas.</TableCaption>
       <TableHeader>
         <TableRow className="[&>th]:cursor-pointer [&>th]:select-none">
@@ -44,7 +44,7 @@ export function BodaList({bodas}: {bodas: Boda[]}) {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={2}>Total</TableCell>
-          <TableCell className="text-right">S/{bodas.length}</TableCell>
+          <TableCell className="text-right">{bodas.length}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>

@@ -11,7 +11,7 @@ export default async function GuestCrud({params}: {params: Params}) {
 
   return (
     <section className="flex w-full flex-1 flex-col gap-10">
-      <div className="flex w-full items-center justify-between px-5">
+      <div className="flex w-full items-center justify-between border-b border-border px-5 pb-3">
         <Link className={buttonVariants({variant: "secondary"})} href="/Bodas">
           back
         </Link>

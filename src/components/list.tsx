@@ -16,19 +16,7 @@ import {
 } from "@/components/ui/table";
 import {cn} from "@/lib/utils";
 import {sortBy} from "@/lib/sort";
-
-enum Action {
-  NAMES = "name",
-  TIPOHAB = "TipoHab",
-  CODIGO = "Codigo",
-  IN = "In",
-  OUT = "Out",
-  NIGHTS = "Nights",
-  TARIFA = "Tarifa",
-  TOTAL = "Total",
-  DEPOSIT = "Deposito",
-  MODODEPAGO = "ModoDePago",
-}
+import {Action} from "@/lib/const";
 
 export function List({guests}: {guests: Invitados[]}) {
   const [sorted, setSorted] = useState<Action | null>(null);

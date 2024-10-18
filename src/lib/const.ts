@@ -7,3 +7,16 @@ export const roomTypes = [
   {value: "suite", label: "Suite"},
   {value: "junior-suite", label: "Junior Suite"},
 ];
+
+export enum Action {
+  NAMES = "name",
+  TIPOHAB = "TipoHab",
+  CODIGO = "Codigo",
+  IN = "In",
+  OUT = "Out",
+  NIGHTS = "Nights",
+  TARIFA = "Tarifa",
+  TOTAL = "Total",
+  DEPOSIT = "Deposito",
+  MODODEPAGO = "ModoDePago",
+}

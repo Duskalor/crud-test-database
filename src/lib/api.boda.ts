@@ -1,5 +1,6 @@
 "use server";
 import {redirect} from "next/navigation";
+import {Boda} from "@prisma/client";
 
 import prisma from "./prisma";
 
@@ -34,7 +35,7 @@ export const getBodabyId = async (id: string) => {
   if (!id) {
     return;
   }
-  console.log({id});
+  // console.log({id})
 
   try {
     const boda = await prisma.boda.findUnique({where: {id}});
@@ -48,4 +49,38 @@ export const getBodabyId = async (id: string) => {
     console.error("Error fetching boda by id:", error);
     throw error;
   }
+};
+
+export const handleEditBoda = async (data: Boda) => {
+  const id = data.id.toString();
+  const name = data.name.toString().trim();
+
+  try {
+    const newBoda = await prisma.boda.update({
+      data: {
+        name,
+      },
+      where: {
+        id: id.toString(),
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  redirect(`/Bodas`);
+};
+
+export const handleDeleteBoda = async (id: string) => {
+  try {
+    await prisma.boda.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  redirect(`/Bodas`);
 };

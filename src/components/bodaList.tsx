@@ -12,11 +12,14 @@ import {
   TableFooter,
   Table,
 } from "./ui/table";
-import {Button} from "./ui/button";
+import {DialogBodaEdit} from "./DialogBodaEdit";
+import {DeleteBoda} from "./deleteBoda";
 
 export function BodaList({bodas}: {bodas: Boda[]}) {
+  console.log(bodas);
+
   return (
-    <Table className="w-6/12">
+    <Table className="w-4/12">
       <TableCaption>A list of your recent bodas.</TableCaption>
       <TableHeader>
         <TableRow className="[&>th]:cursor-pointer [&>th]:select-none">
@@ -41,8 +44,8 @@ export function BodaList({bodas}: {bodas: Boda[]}) {
               {boda.createAt.toLocaleDateString("es-ES")}
             </TableCell>
             <TableCell className="flex justify-between gap-2 text-right">
-              <Button>Edit</Button>
-              <Button>Delete</Button>
+              <DialogBodaEdit boda={boda} />
+              <DeleteBoda id={boda.id} />
             </TableCell>
           </TableRow>
         ))}

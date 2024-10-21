@@ -1,6 +1,6 @@
 "use client";
 import {Boda} from "@prisma/client";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import {Button} from "@/components/ui/button";
 import {
@@ -17,15 +17,33 @@ import {Label} from "@/components/ui/label";
 import {handleEditBoda} from "@/lib/api.boda";
 
 export function DialogBodaEdit({boda}: {boda: Boda}) {
-  const [name, setname] = useState(boda.name);
+  const [name, setName] = useState(boda.name);
+  const [open, setOpen] = useState(false);
+
   const handleNewData = async () => {
+    setOpen(false);
     handleEditBoda({...boda, name});
   };
 
+  useEffect(() => {
+    const handlekeyDown = async (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        setOpen(false);
+        handleEditBoda({...boda, name});
+      }
+    };
+
+    window.addEventListener("keydown", handlekeyDown);
+
+    return () => window.removeEventListener("keydown", handlekeyDown);
+  }, []);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit</Button>
+        <Button variant="outline" onClick={() => setOpen(true)}>
+          Edit
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
@@ -45,7 +63,7 @@ export function DialogBodaEdit({boda}: {boda: Boda}) {
               className="col-span-3"
               id="name"
               value={name}
-              onChange={(e) => setname(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use server";
 import {redirect} from "next/navigation";
 import {Boda} from "@prisma/client";
+import {revalidatePath} from "next/cache";
 
 import prisma from "./prisma";
 
@@ -56,7 +57,7 @@ export const handleEditBoda = async (data: Boda) => {
   const name = data.name.toString().trim();
 
   try {
-    const newBoda = await prisma.boda.update({
+    await prisma.boda.update({
       data: {
         name,
       },
@@ -67,12 +68,13 @@ export const handleEditBoda = async (data: Boda) => {
   } catch (error) {
     console.error(error);
   }
-
   redirect(`/Bodas`);
 };
 
 export const handleDeleteBoda = async (id: string) => {
   try {
+    await prisma.invitados.deleteMany({where: {BodaId: id}});
+
     await prisma.boda.delete({
       where: {
         id,

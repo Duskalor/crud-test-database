@@ -8,4 +8,4 @@ services:
       - POSTGRES_PASSWORD=dusk
       - POSTGRES_DB=dusk
     ports:
-      - '5432:5432'
+      - '5499:5432'

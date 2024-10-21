@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
+import {useState} from "react";
+import {DayPicker} from "react-day-picker";
 
 import {Textarea} from "./ui/textarea";
+import {Calendar} from "./ui/calendar";
 
 import {Button, buttonVariants} from "@/components/ui/button";
 import {
@@ -24,9 +27,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {handleform} from "@/lib/api.invitados";
-import {roomTypes} from "@/lib/const";
+import {MetodosDePago, roomTypes} from "@/lib/const";
+import {cn} from "@/lib/utils";
 
 export default function FormGuest({id}: {id: string}) {
+  const [selected, setSelected] = useState<Date | null>(null);
+
+  console.log(selected);
+
   return (
     <form action={handleform}>
       <Input name="BodaId" type="hidden" value={id} />
@@ -91,6 +99,7 @@ export default function FormGuest({id}: {id: string}) {
                 type="date"
               />
             </div>
+            <div />
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="night">NIGHTS</Label>
               <Input
@@ -113,7 +122,6 @@ export default function FormGuest({id}: {id: string}) {
                 type="number"
               />
             </div>
-
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="modo">MODO DE PAGO </Label>
               <Select name="modo">
@@ -123,11 +131,12 @@ export default function FormGuest({id}: {id: string}) {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel className="select-none">Metodos de pago</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
+
+                    {MetodosDePago.map((metodo) => (
+                      <SelectItem key={metodo.nombre} value={metodo.nombre}>
+                        {metodo.nombre}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -139,7 +148,7 @@ export default function FormGuest({id}: {id: string}) {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Link className={buttonVariants({variant: "outline"})} href="/Guest">
+          <Link className={buttonVariants({variant: "outline"})} href={`/Guest/${id}`}>
             Cancel
           </Link>
           <Button type="submit">Create</Button>

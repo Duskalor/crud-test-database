@@ -16,8 +16,6 @@ import {DialogBodaEdit} from "./DialogBodaEdit";
 import {DeleteBoda} from "./deleteBoda";
 
 export function BodaList({bodas}: {bodas: Boda[]}) {
-  console.log(bodas);
-
   return (
     <Table className="w-4/12">
       <TableCaption>A list of your recent bodas.</TableCaption>

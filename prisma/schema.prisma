@@ -14,14 +14,13 @@ datasource db {
 }
 
 
-model Boda{
+model Boda {
   id String @id @default(cuid())
   name String @unique
   Invitados Invitados[] 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
-
 
 model Invitados {
   id String @id @default(cuid())

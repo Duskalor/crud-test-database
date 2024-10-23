@@ -32,8 +32,8 @@ export function BodaList({bodas}: {bodas: Boda[]}) {
             <TableCell className="relative font-medium">
               <Link
                 key={boda.id}
-                className="absolute inset-0 flex items-center justify-center"
-                href={`/Guest/${boda.id}`}
+                className="absolute inset-0 flex items-center px-5"
+                href={`/Bodas/${boda.id}/Guest`}
               >
                 {boda.name}
               </Link>

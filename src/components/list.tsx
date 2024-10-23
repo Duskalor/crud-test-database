@@ -1,8 +1,9 @@
 "use client";
 import {Invitados} from "@prisma/client";
 import {useState} from "react";
+import Link from "next/link";
 
-import {Button} from "./ui/button";
+import {Button, buttonVariants} from "./ui/button";
 
 import {
   Table,
@@ -71,7 +72,12 @@ export function List({guests}: {guests: Invitados[]}) {
             <TableCell>{guest.ModoDePago}</TableCell>
             <TableCell>{guest.Observaciones}</TableCell>
             <TableCell className="flex justify-between gap-2">
-              <Button>Edit</Button>
+              <Link
+                className={buttonVariants({variant: "default"})}
+                href={`Guest/${guest.id}/edit`}
+              >
+                Edit
+              </Link>
               <Button>Delete</Button>
             </TableCell>
           </TableRow>

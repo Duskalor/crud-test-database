@@ -18,7 +18,7 @@ export default async function GuestCrud({params}: {params: Params}) {
         <h1 className="flex-1 text-center text-2xl font-bold text-gray-800 dark:text-white">
           {boda?.name}
         </h1>
-        <Link className={buttonVariants({variant: "secondary"})} href={`/Guest/${BodaId}/create`}>
+        <Link className={buttonVariants({variant: "secondary"})} href="Guest/create">
           New guest
         </Link>
       </div>

@@ -1,10 +1,8 @@
 "use client";
 import Link from "next/link";
 import {useState} from "react";
-import {DayPicker} from "react-day-picker";
 
 import {Textarea} from "./ui/textarea";
-import {Calendar} from "./ui/calendar";
 
 import {Button, buttonVariants} from "@/components/ui/button";
 import {
@@ -28,16 +26,13 @@ import {
 } from "@/components/ui/select";
 import {handleform} from "@/lib/api.invitados";
 import {MetodosDePago, roomTypes} from "@/lib/const";
-import {cn} from "@/lib/utils";
 
-export default function FormGuest({id}: {id: string}) {
-  const [selected, setSelected] = useState<Date | null>(null);
-
-  console.log(selected);
+export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: string}) {
+  console.log({GuestId});
 
   return (
     <form action={handleform}>
-      <Input name="BodaId" type="hidden" value={id} />
+      <Input name="BodaId" type="hidden" value={bodaId} />
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Create new guest</CardTitle>
@@ -148,7 +143,7 @@ export default function FormGuest({id}: {id: string}) {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Link className={buttonVariants({variant: "outline"})} href={`/Guest/${id}`}>
+          <Link className={buttonVariants({variant: "outline"})} href={`/Guest/${bodaId}`}>
             Cancel
           </Link>
           <Button type="submit">Create</Button>

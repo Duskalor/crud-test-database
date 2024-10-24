@@ -45,8 +45,8 @@ export function List({guests}: {guests: Invitados[]}) {
           <TableHead onClick={() => setSorted(sorted ? null : Action.MODODEPAGO)}>
             MODO DEPAGO
           </TableHead>
-          <TableHead>OBSERVACIONES</TableHead>
-          <TableHead className="text-right">ACCIONES</TableHead>
+          <TableHead>OBSERVATIONS</TableHead>
+          <TableHead className="text-right">ACTIONS</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

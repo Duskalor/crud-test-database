@@ -6,6 +6,7 @@ import "./globals.css";
 import {ThemeProvider} from "@/components/theme-provider";
 import {ModeToggle} from "@/components/toggle";
 import {Sidebar} from "@/components/sidebar";
+import {Toaster} from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "crud-test-database",
@@ -24,7 +25,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
             defaultTheme="dark"
           >
             <header className="flex justify-between p-5 text-xl font-bold leading-[4rem]">
-              <Link href="/">App para gestionar invitados</Link>
+              <Link href="/">App to manage guests.</Link>
               <ModeToggle />
             </header>
             <main className="min-w-screen flex w-full flex-1 flex-col gap-5 overflow-x-auto py-2 lg:flex-row lg:py-5">
@@ -36,6 +37,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
             </footer>
           </ThemeProvider>
         </main>
+        <Toaster richColors />
       </body>
     </html>
   );

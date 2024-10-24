@@ -23,7 +23,7 @@ export function BodaList({bodas}: {bodas: Boda[]}) {
         <TableRow className="[&>th]:cursor-pointer [&>th]:select-none">
           <TableHead className="text-center">NAMES</TableHead>
           <TableHead className="text-center">CREATE AT</TableHead>
-          <TableHead className="w-[200px] text-right">ACCIONES</TableHead>
+          <TableHead className="w-[200px] text-right">ACTIONS</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

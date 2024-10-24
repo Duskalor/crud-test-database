@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {useState} from "react";
+import {Invitados} from "@prisma/client";
 
 import {Textarea} from "./ui/textarea";
 
@@ -24,29 +24,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {handleform} from "@/lib/api.invitados";
+import {handleEditGuest, handleNewGuest} from "@/lib/api.invitados";
 import {MetodosDePago, roomTypes} from "@/lib/const";
+import {formatDateToInput} from "@/lib/date";
 
-export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: string}) {
-  console.log({GuestId});
+export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invitados}) {
+  const formAction = guest ? handleEditGuest : handleNewGuest;
 
   return (
-    <form action={handleform}>
-      <Input name="BodaId" type="hidden" value={bodaId} />
+    <form action={formAction}>
+      <Input name="BodaId" type="hidden" value={BodaId} />
+      {guest ? <Input name="GuestId" type="hidden" value={guest.id} /> : null}
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Create new guest</CardTitle>
-          <CardDescription>Create a new guest in the database.</CardDescription>
+          <CardTitle>{guest ? "Edit Guest" : "Create new guest"}</CardTitle>
+          <CardDescription>
+            {guest ? "Edit guest in the database." : "Create a new guest in the database."}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">NAME</Label>
-              <Input required id="name" name="name" placeholder="Name of your guest" />
+              <Input
+                required
+                defaultValue={guest?.name ? guest.name : ""}
+                id="name"
+                name="name"
+                placeholder="Name of your guest"
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="tipohab">TIPO HAB</Label>
-              <Select required name="tipohab">
+              <Select
+                required
+                defaultValue={guest?.TipoHab ? guest.TipoHab : "select-none"}
+                name="tipohab"
+              >
                 <SelectTrigger id="tipohab" name="tipohab">
                   <SelectValue placeholder="Select a option" />
                 </SelectTrigger>
@@ -66,6 +80,7 @@ export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: 
               <Label htmlFor="codigo">CODIGO</Label>
               <Input
                 required
+                defaultValue={guest?.Codigo ? guest.Codigo : ""}
                 id="codigo"
                 min={0}
                 name="codigo"
@@ -77,6 +92,7 @@ export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: 
               <Label htmlFor="in">IN</Label>
               <Input
                 className="justify-center"
+                defaultValue={guest?.In ? formatDateToInput(new Date(guest.In)) : ""}
                 id="in"
                 name="in"
                 placeholder="arrive"
@@ -88,6 +104,7 @@ export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: 
               <Input
                 required
                 className="justify-center"
+                defaultValue={guest?.Out ? formatDateToInput(new Date(guest.Out)) : ""}
                 id="out"
                 name="out"
                 placeholder="out"
@@ -99,6 +116,7 @@ export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: 
               <Label htmlFor="night">NIGHTS</Label>
               <Input
                 required
+                defaultValue={guest?.Nights ? guest.Nights : ""}
                 id="night"
                 min={0}
                 name="nights"
@@ -110,6 +128,7 @@ export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: 
               <Label htmlFor="tarifa">TARIFA</Label>
               <Input
                 required
+                defaultValue={guest?.Tarifa ? guest.Tarifa : ""}
                 id="tarifa"
                 min={0}
                 name="tarifa"
@@ -119,7 +138,10 @@ export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: 
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="modo">MODO DE PAGO </Label>
-              <Select name="modo">
+              <Select
+                defaultValue={guest?.ModoDePago ? guest?.ModoDePago : "select-none"}
+                name="modo"
+              >
                 <SelectTrigger id="modo">
                   <SelectValue placeholder="Select a option" />
                 </SelectTrigger>
@@ -138,15 +160,19 @@ export default function FormGuest({bodaId, GuestId}: {bodaId: string; GuestId?: 
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="OBSERVACIONES">OBSERVACIONES </Label>
-              <Textarea name="observaciones" placeholder="some things to observe" />
+              <Textarea
+                defaultValue={guest?.Observaciones ? guest.Observaciones : ""}
+                name="observaciones"
+                placeholder="some things to observe"
+              />
             </div>
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Link className={buttonVariants({variant: "outline"})} href={`/Guest/${bodaId}`}>
+          <Link className={buttonVariants({variant: "outline"})} href={`/Bodas/${BodaId}/Guest`}>
             Cancel
           </Link>
-          <Button type="submit">Create</Button>
+          <Button type="submit">{guest ? "Update" : "Create"}</Button>
         </CardFooter>
       </Card>
     </form>

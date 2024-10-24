@@ -22,21 +22,21 @@ export function DialogBodaEdit({boda}: {boda: Boda}) {
 
   const handleNewData = async () => {
     setOpen(false);
-    handleEditBoda({...boda, name});
+    await handleEditBoda({...boda, name});
   };
 
   useEffect(() => {
-    const handlekeyDown = async (e: KeyboardEvent) => {
+    const handlekeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        setOpen(false);
         handleEditBoda({...boda, name});
+        setOpen(false);
       }
     };
 
     window.addEventListener("keydown", handlekeyDown);
 
     return () => window.removeEventListener("keydown", handlekeyDown);
-  }, []);
+  }, [name]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

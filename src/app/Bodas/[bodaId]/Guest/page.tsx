@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {redirect} from "next/navigation";
 
 import {GuestList} from "@/components/GuestList";
 import {buttonVariants} from "@/components/ui/button";
@@ -7,6 +8,9 @@ import {Params} from "@/types/types";
 
 export default async function GuestCrud({params}: {params: Params}) {
   const {BodaId} = params;
+
+  if (!BodaId) redirect(`/Bodas`);
+
   const boda = await getBodabyId(BodaId);
 
   return (
@@ -22,7 +26,7 @@ export default async function GuestCrud({params}: {params: Params}) {
           New guest
         </Link>
       </div>
-      <GuestList id={BodaId} />
+      <GuestList BodaId={BodaId} />
     </section>
   );
 }

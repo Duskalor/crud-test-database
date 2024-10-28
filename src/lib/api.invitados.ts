@@ -3,6 +3,7 @@
 import {redirect} from "next/navigation";
 
 import prisma from "./prisma";
+import {formatDateToInput} from "./date";
 
 export const handleNewGuest = async (data: FormData) => {
   const newData = Object.fromEntries(data);
@@ -19,6 +20,7 @@ export const handleNewGuest = async (data: FormData) => {
   const ModoDePago = newData.modo.toString();
   const Observaciones = newData.observaciones.toString() ?? "";
 
+  // console.log({data, In});
   try {
     await prisma.invitados.create({
       data: {
@@ -58,6 +60,7 @@ export const handleEditGuest = async (data: FormData) => {
   const ModoDePago = newData.modo.toString();
   const Observaciones = newData.observaciones.toString() ?? "";
 
+  console.log({In, new: formatDateToInput(In), old: newData.in.toString()});
   try {
     await prisma.invitados.update({
       where: {
@@ -84,4 +87,18 @@ export const handleEditGuest = async (data: FormData) => {
 
 export const getInvitadoById = async (id: string) => {
   return await prisma.invitados.findFirst({where: {id}});
+};
+
+export const handleDeleteInvitado = async (id: string, BodaId: string) => {
+  try {
+    await prisma.invitados.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  redirect(`/Bodas/${BodaId}/Guest`);
 };

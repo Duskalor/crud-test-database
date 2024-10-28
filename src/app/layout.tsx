@@ -6,7 +6,6 @@ import "./globals.css";
 import {ThemeProvider} from "@/components/theme-provider";
 import {ModeToggle} from "@/components/toggle";
 import {Sidebar} from "@/components/sidebar";
-import {Toaster} from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "crud-test-database",
@@ -37,7 +36,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
             </footer>
           </ThemeProvider>
         </main>
-        <Toaster richColors />
       </body>
     </html>
   );

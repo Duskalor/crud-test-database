@@ -4,6 +4,7 @@ import {useState} from "react";
 import Link from "next/link";
 
 import {Button, buttonVariants} from "./ui/button";
+import {DeleteGuest} from "./deleteGuest";
 
 import {
   Table,
@@ -18,8 +19,9 @@ import {
 import {cn} from "@/lib/utils";
 import {sortBy} from "@/lib/sort";
 import {Action} from "@/lib/const";
+import {formatDateToInput} from "@/lib/date";
 
-export function List({guests}: {guests: Invitados[]}) {
+export function List({guests, BodaId}: {guests: Invitados[]; BodaId: string}) {
   const [sorted, setSorted] = useState<Action | null>(null);
 
   const sortedGuests = sortBy([...guests], sorted);
@@ -55,8 +57,8 @@ export function List({guests}: {guests: Invitados[]}) {
             <TableCell className="font-medium">{guest.name}</TableCell>
             <TableCell>{guest.TipoHab}</TableCell>
             <TableCell>{guest.Codigo}</TableCell>
-            <TableCell>{guest.In.toLocaleDateString("es-ES")}</TableCell>
-            <TableCell>{guest.Out.toLocaleDateString("es-ES")}</TableCell>
+            <TableCell>{formatDateToInput(guest.In)}</TableCell>
+            <TableCell>{formatDateToInput(guest.Out)}</TableCell>
             <TableCell>{guest.Nights}</TableCell>
             <TableCell>{guest.Tarifa}</TableCell>
             <TableCell>{guest.Total}</TableCell>
@@ -78,7 +80,7 @@ export function List({guests}: {guests: Invitados[]}) {
               >
                 Edit
               </Link>
-              <Button>Delete</Button>
+              <DeleteGuest BodaId={BodaId} id={guest.id} />
             </TableCell>
           </TableRow>
         ))}

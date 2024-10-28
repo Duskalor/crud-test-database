@@ -1,7 +1,15 @@
-export function formatDateToInput(date: Date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Mes comienza desde 0
-  const day = String(date.getDate()).padStart(2, "0");
+import {format} from "date-fns";
+import {formatInTimeZone} from "date-fns-tz";
 
-  return `${year}-${month}-${day}`;
-}
+export const formatDateToInput = (date: Date) => {
+  // Ajusta la fecha para que sea el mediodía antes de formatear
+  const adjustedDate = new Date(date);
+
+  adjustedDate.setUTCHours(12); // Establece la hora a mediodía para evitar cruces de día
+
+  const actualDate = formatInTimeZone(adjustedDate, "America/Lima", "yyyy-MM-dd");
+
+  console.log({date, dateNew: new Date(date), actualDate});
+
+  return actualDate;
+};

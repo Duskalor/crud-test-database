@@ -1,7 +1,6 @@
 "use server";
 
 import {redirect} from "next/navigation";
-import {toast} from "sonner";
 
 import prisma from "./prisma";
 
@@ -36,10 +35,8 @@ export const handleNewGuest = async (data: FormData) => {
         Observaciones,
       },
     });
-    toast.success("Guest created successfully");
   } catch (error) {
     console.error(error);
-    toast.error("Guest failed to create");
   }
 
   redirect(`/Bodas/${BodaId}/Guest`);
@@ -79,10 +76,8 @@ export const handleEditGuest = async (data: FormData) => {
         Observaciones,
       },
     });
-    toast.success("Guest updated successfully");
   } catch (error) {
     console.error(error);
-    toast.error("Guest failed to update");
   }
   redirect(`/Bodas/${BodaId}/Guest`);
 };

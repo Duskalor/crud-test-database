@@ -24,6 +24,7 @@ import {formatDateToInput} from "@/lib/date";
 export function List({guests, BodaId}: {guests: Invitados[]; BodaId: string}) {
   const [sorted, setSorted] = useState<Action | null>(null);
 
+  console.log(guests);
   const sortedGuests = sortBy([...guests], sorted);
 
   const totalGains = guests.reduce((acc, n) => acc + (n?.Total ?? 0), 0);

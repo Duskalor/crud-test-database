@@ -1,14 +1,17 @@
 "use server";
 import {redirect} from "next/navigation";
 import {Boda} from "@prisma/client";
-import {revalidatePath} from "next/cache";
 
 import prisma from "./prisma";
 
 export const getBoda = async () => {
-  const bodas = await prisma.boda.findMany();
+  try {
+    const bodas = await prisma.boda.findMany();
 
-  return bodas ? bodas : [];
+    return bodas;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const handleformBoda = async (data: FormData) => {

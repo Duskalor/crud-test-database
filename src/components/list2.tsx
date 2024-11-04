@@ -1,11 +1,17 @@
 "use client";
 import {Invitados} from "@prisma/client";
-import {flexRender, getCoreRowModel, useReactTable} from "@tanstack/react-table";
+import {
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import {useState} from "react";
 import dayjs from "dayjs";
 import {ColumnDef} from "@tanstack/react-table";
 
 import {DeleteGuest} from "./deleteGuest";
+import {Input} from "./ui/input";
 
 import {
   Table,
@@ -90,42 +96,58 @@ const columns: ColumnDef<Guest>[] = [
 ];
 
 export function List2({guests}: {guests: Invitados[]}) {
-  // eslint-disable-next-line react/hook-use-state
+  const [filtering, setFiltering] = useState("");
   const [data] = useState(guests);
 
-  const table = useReactTable({columns, data, getCoreRowModel: getCoreRowModel()});
+  console.log(data);
+  const table = useReactTable({
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      globalFilter: filtering,
+    },
+    onGlobalFilterChange: setFiltering,
+  });
 
   return (
-    <Table>
-      <TableCaption>A list of your recent guest.</TableCaption>
-      <TableHeader>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <TableHead key={header.id}>
-                {typeof header.column.columnDef.header === "function"
-                  ? header.column.columnDef.header(header.getContext())
-                  : header.column.columnDef.header}
-              </TableHead>
-            ))}
-          </TableRow>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table.getRowModel().rows.map((row) => {
-          return (
-            <TableRow key={row.id}>
-              {row.getVisibleCells().map((cell) => {
-                return (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                );
-              })}
+    <section>
+      <Input
+        className="my-2"
+        type="text"
+        value={filtering}
+        onChange={(e) => setFiltering(e.target.value)}
+      />
+      <Table>
+        <TableCaption>A list of your recent guest.</TableCaption>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))}
             </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map((row) => {
+            return (
+              <TableRow key={row.id}>
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </section>
   );
 }

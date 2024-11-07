@@ -1,10 +1,11 @@
 import Link from "next/link";
 import {redirect} from "next/navigation";
 
-import {GuestList} from "@/components/GuestList";
+import {GuestList} from "@/app/Bodas/[BodaId]/Guest/GuestList";
 import {buttonVariants} from "@/components/ui/button";
 import {getBodabyId} from "@/lib/api.boda";
 import {Params} from "@/types/types";
+import prisma from "@/lib/prisma";
 
 export default async function GuestCrud({params}: {params: Params}) {
   const {BodaId} = params;
@@ -12,6 +13,7 @@ export default async function GuestCrud({params}: {params: Params}) {
   if (!BodaId) redirect(`/Bodas`);
 
   const boda = await getBodabyId(BodaId);
+  const guests = await prisma.invitados.findMany({where: {BodaId}});
 
   return (
     <section className="flex w-full flex-1 flex-col gap-10">
@@ -26,7 +28,7 @@ export default async function GuestCrud({params}: {params: Params}) {
           New guest
         </Link>
       </div>
-      <GuestList BodaId={BodaId} />
+      <GuestList guests={guests} />
     </section>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import {getBoda} from "@/lib/api.boda";
 import {buttonVariants} from "@/components/ui/button";
-import {BodaList} from "@/components/bodaList";
+import {BodaList} from "@/app/Bodas/bodaList";
 import {ReturnButton} from "@/components/return-button";
 
 const page = async () => {

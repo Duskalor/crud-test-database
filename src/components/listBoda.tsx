@@ -1,21 +1,21 @@
 import React from "react";
+import {Link} from "lucide-react";
 import {Boda} from "@prisma/client";
-import Link from "next/link";
 
 import {
-  TableCaption,
-  TableHeader,
-  TableRow,
-  TableHead,
+  Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableFooter,
-  Table,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "./ui/table";
-import {DialogBodaEdit} from "./DialogBodaEdit";
 import {DeleteBoda} from "./deleteBoda";
+import {DialogBodaEdit} from "./DialogBodaEdit";
 
-export function BodaList({bodas}: {bodas: Boda[]}) {
+export const listBoda = ({bodas}: {bodas: Boda[]}) => {
   return (
     <Table className="w-4/12">
       <TableCaption>A list of your recent bodas.</TableCaption>
@@ -56,4 +56,4 @@ export function BodaList({bodas}: {bodas: Boda[]}) {
       </TableFooter>
     </Table>
   );
-}
+};

@@ -33,16 +33,20 @@ import {MetodosDePago, roomTypes} from "@/lib/const";
 
 export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invitados}) {
   const [date, setDate] = useState<DateRange | undefined>(() => ({
-    from: guest ? guest.In : new Date(),
+    from: guest ? guest.In : undefined,
     to: guest ? guest.Out : undefined,
   }));
+  const formAction = guest ? handleEditGuest : handleNewGuest;
 
-  const formAction = guest ? handleEditGuest : handleNewGuest.bind(null, date!);
+  const diff =
+    date?.to && date?.from
+      ? (new Date(date.to).getTime() - new Date(date.from).getTime()) / (1000 * 60 * 60 * 24)
+      : 0;
 
   return (
-    <form action={formAction}>
-      <Input name="BodaId" type="hidden" value={BodaId} />
-      {guest ? <Input name="GuestId" type="hidden" value={guest.id} /> : null}
+    <form action={formAction.bind(null, date!)}>
+      <Input readOnly className="hidden" name="BodaId" value={BodaId} />
+      {guest ? <Input readOnly className="hidden" name="GuestId" value={guest.id} /> : null}
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>{guest ? "Edit Guest" : "Create new guest"}</CardTitle>
@@ -104,41 +108,22 @@ export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invi
                 onSelect={(range) => setDate(range)}
               />
             </div>
-            {/* <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="in">IN</Label>
-              <Input
-                className="justify-center"
-                defaultValue={guest?.In ? formatDateToInput(new Date(guest.In)) : ""}
-                id="in"
-                name="in"
-                placeholder="arrive"
-                type="date"
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="out">OUT</Label>
-              <Input
-                required
-                className="justify-center"
-                defaultValue={guest?.Out ? formatDateToInput(new Date(guest.Out)) : ""}
-                id="out"
-                name="out"
-                placeholder="out"
-                type="date"
-              
-            </div>
-            /> */}
+
             <div />
+            {/* NIGHT */}
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="night">NIGHTS</Label>
+              <Label>NIGHTS</Label>
               <Input
-                required
-                defaultValue={guest?.Nights ? guest.Nights : ""}
+                readOnly
+                className="w-full cursor-not-allowed rounded border-gray-800 p-2 text-gray-500 focus-visible:outline-none"
+                defaultValue={diff}
                 id="night"
                 min={0}
                 name="nights"
                 placeholder="number of the nights"
+                style={{outline: "none"}}
                 type="number"
+                value={diff}
               />
             </div>
             <div className="flex flex-col space-y-1.5">

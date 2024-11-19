@@ -9,6 +9,7 @@ import {formatDateToInput} from "./date";
 export const handleNewGuest = async (date: DateRange, data: FormData) => {
   const newData = Object.fromEntries(data);
 
+  console.log({newData});
   const BodaId = newData.BodaId.toString();
   const name = newData.name.toString();
   const TipoHab = newData.tipohab.toString();
@@ -16,7 +17,7 @@ export const handleNewGuest = async (date: DateRange, data: FormData) => {
   const In = new Date(date!.from!.toString());
   const Out = new Date(date!.to!.toString());
   const Nights = parseInt(newData.nights.toString());
-  const Tarifa = parseFloat(newData.nights.toString());
+  const Tarifa = parseFloat(newData.tarifa.toString());
   const Total = Nights * Tarifa;
   const ModoDePago = newData.modo.toString();
   const Observaciones = newData.observaciones.toString() ?? "";
@@ -45,23 +46,24 @@ export const handleNewGuest = async (date: DateRange, data: FormData) => {
   redirect(`/Bodas/${BodaId}/Guest`);
 };
 
-export const handleEditGuest = async (data: FormData) => {
+export const handleEditGuest = async (date: DateRange, data: FormData) => {
   const newData = Object.fromEntries(data);
 
+  console.log(newData);
   const BodaId = newData.BodaId.toString();
   const GuestId = newData.GuestId.toString();
   const name = newData.name.toString();
   const TipoHab = newData.tipohab.toString();
   const Codigo = parseInt(newData.codigo.toString());
-  const In = new Date(newData.in.toString());
-  const Out = new Date(newData.out.toString());
+  const In = new Date(date!.from!.toString());
+  const Out = new Date(date!.to!.toString());
   const Nights = parseInt(newData.nights.toString());
-  const Tarifa = parseFloat(newData.nights.toString());
+  const Tarifa = parseFloat(newData.tarifa.toString());
   const Total = Nights * Tarifa;
   const ModoDePago = newData.modo.toString();
   const Observaciones = newData.observaciones.toString() ?? "";
 
-  console.log({In, new: formatDateToInput(In), old: newData.in.toString()});
+  // console.log({In, new: formatDateToInput(In), old: newData.in.toString()});
   try {
     await prisma.invitados.update({
       where: {

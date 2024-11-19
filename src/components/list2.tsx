@@ -1,10 +1,12 @@
 "use client";
-import {Boda, Invitados} from "@prisma/client";
+"use no memo";
+
 import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import {useState} from "react";
@@ -24,18 +26,20 @@ import {
 
 export function List2<T>({data, columns}: {data: T[]; columns: ColumnDef<T>[]}) {
   const [filtering, setFiltering] = useState("");
+  const [setSorting, setSetSorting] = useState<SortingState>([]);
   const table = useReactTable({
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    onGlobalFilterChange: setFiltering,
+    onSortingChange: setSetSorting,
     state: {
       globalFilter: filtering,
+      sorting: setSorting,
     },
-    onGlobalFilterChange: setFiltering,
   });
-  const sorterd = {asc: "⬆️", desc: "⬇️"};
 
   return (
     <section>
@@ -45,23 +49,26 @@ export function List2<T>({data, columns}: {data: T[]; columns: ColumnDef<T>[]}) 
         value={filtering}
         onChange={(e) => setFiltering(e.target.value)}
       />
-      <Table className={`w-[${table.getTotalSize()}x] mx-auto`}>
+      <Table className={`w-[${table.getTotalSize()}px] mx-auto`}>
         <TableCaption>A list of your recent guest.</TableCaption>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead
-                  key={header.id}
-                  className={`w-[${header.getSize()}px]`}
-                  onClick={header.column.getToggleSortingHandler()}
-                >
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                  {header.column.getIsSorted()
-                    ? sorterd[header.column.getIsSorted() as "asc" | "desc"]
-                    : null}
-                </TableHead>
-              ))}
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead
+                    key={header.id}
+                    className="cursor-pointer select-none px-5 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
+                    style={{width: `${header.getSize()}px`}}
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(header.column.columnDef.header, header.getContext())}
+                    {{asc: "⬆️", desc: "⬇️"}[(header.column.getIsSorted() as string) ?? null]}
+                  </TableHead>
+                );
+              })}
             </TableRow>
           ))}
         </TableHeader>

@@ -1,19 +1,20 @@
 "use server";
 
 import {redirect} from "next/navigation";
+import {DateRange} from "react-day-picker";
 
 import prisma from "./prisma";
 import {formatDateToInput} from "./date";
 
-export const handleNewGuest = async (data: FormData) => {
+export const handleNewGuest = async (date: DateRange, data: FormData) => {
   const newData = Object.fromEntries(data);
 
   const BodaId = newData.BodaId.toString();
   const name = newData.name.toString();
   const TipoHab = newData.tipohab.toString();
   const Codigo = parseInt(newData.codigo.toString());
-  const In = new Date(newData.in.toString());
-  const Out = new Date(newData.out.toString());
+  const In = new Date(date!.from!.toString());
+  const Out = new Date(date!.to!.toString());
   const Nights = parseInt(newData.nights.toString());
   const Tarifa = parseFloat(newData.nights.toString());
   const Total = Nights * Tarifa;

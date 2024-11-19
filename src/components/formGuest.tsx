@@ -1,8 +1,11 @@
 "use client";
 import Link from "next/link";
 import {Invitados} from "@prisma/client";
+import {useState} from "react";
+import {DateRange} from "react-day-picker";
 
 import {Textarea} from "./ui/textarea";
+import {Calendar} from "./ui/calendar";
 
 import {Button, buttonVariants} from "@/components/ui/button";
 import {
@@ -26,10 +29,15 @@ import {
 } from "@/components/ui/select";
 import {handleEditGuest, handleNewGuest} from "@/lib/api.invitados";
 import {MetodosDePago, roomTypes} from "@/lib/const";
-import {formatDateToInput} from "@/lib/date";
+// import {formatDateToInput} from "@/lib/date";
 
 export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invitados}) {
-  const formAction = guest ? handleEditGuest : handleNewGuest;
+  const [date, setDate] = useState<DateRange | undefined>(() => ({
+    from: guest ? guest.In : new Date(),
+    to: guest ? guest.Out : undefined,
+  }));
+
+  const formAction = guest ? handleEditGuest : handleNewGuest.bind(null, date!);
 
   return (
     <form action={formAction}>
@@ -88,7 +96,15 @@ export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invi
                 type="number"
               />
             </div>
-            <div className="flex flex-col space-y-1.5">
+            <div>
+              <Calendar
+                className="rounded-md border"
+                mode="range"
+                selected={date}
+                onSelect={(range) => setDate(range)}
+              />
+            </div>
+            {/* <div className="flex flex-col space-y-1.5">
               <Label htmlFor="in">IN</Label>
               <Input
                 className="justify-center"
@@ -109,8 +125,9 @@ export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invi
                 name="out"
                 placeholder="out"
                 type="date"
-              />
+              
             </div>
+            /> */}
             <div />
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="night">NIGHTS</Label>

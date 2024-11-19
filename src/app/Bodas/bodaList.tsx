@@ -14,12 +14,8 @@ const columns: ColumnDef<Boda>[] = [
     accessorKey: "name",
     size: 270,
     cell: ({row: {original}}) => (
-      <div className="relative bg-red-800 font-medium">
-        <Link
-          key={original.id}
-          className="absolute inset-0 flex items-center bg-emerald-900 px-5"
-          href={`/Bodas/${original.id}/Guest`}
-        >
+      <div className="relative flex">
+        <Link key={original.id} className="w-full" href={`/Bodas/${original.id}/Guest`}>
           {original.name}
         </Link>
       </div>

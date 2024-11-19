@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^5.6.3",
     "@clerk/themes": "^2.1.33",
+    "@hookform/resolvers": "^3.9.1",
     "@opentelemetry/api-logs": "^0.52.1",
     "@prisma/client": "5.21.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
@@ -36,9 +37,11 @@
     "react": "19.0.0-rc-e4953922-20240919",
     "react-day-picker": "8.10.1",
     "react-dom": "19.0.0-rc-e4953922-20240919",
+    "react-hook-form": "^7.53.2",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "^3.4.10",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",

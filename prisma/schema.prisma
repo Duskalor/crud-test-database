@@ -17,6 +17,7 @@ datasource db {
 model Boda {
   id String @id @default(cuid())
   name String @unique
+  eventDate DateTime
   Invitados Invitados[] 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt

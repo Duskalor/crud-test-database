@@ -15,6 +15,9 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning lang="es">
+      <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+      </head>
       <body>
         <main className="mx-auto flex min-h-screen flex-col bg-background px-5 font-sans">
           <ThemeProvider

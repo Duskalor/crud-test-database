@@ -57,18 +57,18 @@ export const columns: ColumnDef<Invitados>[] = [
     accessorKey: "Observaciones",
     header: "OBSERVATIONS",
   },
-  {
-    accessorKey: "actions",
-    header: "ACTIONS",
-    cell: ({row: {original}}) => (
-      <div className="flex justify-between gap-2">
-        <Link className={buttonVariants({variant: "default"})} href={`Guest/${original.id}/edit`}>
-          Edit
-        </Link>
-        <DeleteGuest BodaId={original.BodaId} id={original.id} />
-      </div>
-    ),
-  },
+  // {
+  //   accessorKey: "actions",
+  //   header: "ACTIONS",
+  //   cell: ({row: {original}}) => (
+  //     <div className="flex justify-between gap-2">
+  //       <Link className={buttonVariants({variant: "default"})} href={`Guest/${original.id}/edit`}>
+  //         Edit
+  //       </Link>
+  //       <DeleteGuest BodaId={original.BodaId} id={original.id} />
+  //     </div>
+  //   ),
+  // },
 ];
 
 export function GuestList({guests: data}: {guests: Invitados[]}) {

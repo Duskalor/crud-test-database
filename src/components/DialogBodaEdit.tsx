@@ -2,6 +2,8 @@
 import {Boda} from "@prisma/client";
 import {useEffect, useState} from "react";
 
+import CalendarBoda from "./calendar-boda";
+
 import {Button} from "@/components/ui/button";
 import {
   Dialog,
@@ -19,10 +21,11 @@ import {handleEditBoda} from "@/lib/api.boda";
 export function DialogBodaEdit({boda}: {boda: Boda}) {
   const [name, setName] = useState(boda.name);
   const [open, setOpen] = useState(false);
-
+  const [date, setDate] = useState(boda.eventDate);
+  // console.log(boda.name, name);
   const handleNewData = async () => {
     setOpen(false);
-    await handleEditBoda({...boda, name});
+    await handleEditBoda({...boda, name, eventDate: date});
   };
 
   useEffect(() => {
@@ -65,6 +68,14 @@ export function DialogBodaEdit({boda}: {boda: Boda}) {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+          </div>
+        </div>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label className="text-right" htmlFor="name">
+              Name
+            </Label>
+            <CalendarBoda setValue={setDate} value={date} />
           </div>
         </div>
         <DialogFooter>

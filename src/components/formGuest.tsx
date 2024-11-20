@@ -32,10 +32,9 @@ import {MetodosDePago, roomTypes} from "@/lib/const";
 // import {formatDateToInput} from "@/lib/date";
 
 export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invitados}) {
-  const [date, setDate] = useState<DateRange | undefined>(() => ({
-    from: guest ? guest.In : undefined,
-    to: guest ? guest.Out : undefined,
-  }));
+  const [date, setDate] = useState<DateRange | undefined>(
+    guest ? {from: new Date(guest.In), to: new Date(guest.Out)} : undefined,
+  );
   const formAction = guest ? handleEditGuest : handleNewGuest;
 
   const diff =
@@ -116,7 +115,7 @@ export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invi
               <Input
                 readOnly
                 className="w-full cursor-not-allowed rounded border-gray-800 p-2 text-gray-500 focus-visible:outline-none"
-                defaultValue={diff}
+                // defaultValue={diff}
                 id="night"
                 min={0}
                 name="nights"

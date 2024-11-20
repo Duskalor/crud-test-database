@@ -22,10 +22,8 @@ import {handleformBoda} from "@/lib/api.boda";
 export default function FormBoda() {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  console.log(date);
-
   return (
-    <form action={handleformBoda}>
+    <form action={handleformBoda.bind(null, date!)}>
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Create new Boda</CardTitle>

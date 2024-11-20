@@ -6,7 +6,11 @@ import prisma from "./prisma";
 
 export const getBoda = async () => {
   try {
-    const bodas = await prisma.boda.findMany();
+    const bodas = await prisma.boda.findMany({
+      orderBy: {
+        createAt: "asc",
+      },
+    });
 
     return bodas;
   } catch (error) {
@@ -14,25 +18,18 @@ export const getBoda = async () => {
   }
 };
 
-export const handleformBoda = async (data: FormData) => {
+export const handleformBoda = async (eventDate: Date, data: FormData) => {
   const newData = Object.fromEntries(data);
 
   const name = newData.name.toString();
-  let id;
 
   try {
-    const newBoda = await prisma.boda.create({
-      data: {
-        name,
-      },
-    });
-
-    id = newBoda.id;
+    await prisma.boda.create({data: {name, eventDate}});
   } catch (error) {
     console.error(error);
   }
 
-  redirect(`/Guest/${id}`);
+  redirect("/Bodas");
 };
 
 export const getBodabyId = async (id: string) => {
@@ -58,11 +55,13 @@ export const getBodabyId = async (id: string) => {
 export const handleEditBoda = async (data: Boda) => {
   const id = data.id.toString();
   const name = data.name.toString().trim();
+  const eventDate = data.eventDate;
 
   try {
     await prisma.boda.update({
       data: {
         name,
+        eventDate,
       },
       where: {
         id: id.toString(),

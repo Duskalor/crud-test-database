@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {redirect} from "next/navigation";
+import dayjs from "dayjs";
 
 import {GuestList} from "@/app/Bodas/[BodaId]/Guest/GuestList";
 import {buttonVariants} from "@/components/ui/button";
@@ -13,7 +14,7 @@ export default async function GuestCrud({params}: {params: Params}) {
   if (!BodaId) redirect(`/Bodas`);
 
   const boda = await getBodabyId(BodaId);
-  const guests = await prisma.invitados.findMany({where: {BodaId}});
+  const guests = await prisma.invitados.findMany({where: {BodaId}, orderBy: {createAt: "asc"}});
 
   return (
     <section className="flex w-full flex-1 flex-col gap-10">
@@ -22,7 +23,7 @@ export default async function GuestCrud({params}: {params: Params}) {
           back
         </Link>
         <h1 className="flex-1 text-center text-2xl font-bold text-gray-800 dark:text-white">
-          {boda?.name}
+          {boda?.name} - {} {dayjs(boda?.eventDate).format("DD MMMM YYYY")}
         </h1>
         <Link className={buttonVariants({variant: "secondary"})} href="Guest/create">
           New guest

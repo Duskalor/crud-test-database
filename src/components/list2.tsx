@@ -11,6 +11,8 @@ import {
 } from "@tanstack/react-table";
 import {useState} from "react";
 import {type ColumnDef} from "@tanstack/react-table";
+import {redirect} from "next/navigation";
+import {type Invitados, Boda} from "@prisma/client";
 
 import {Input} from "./ui/input";
 
@@ -75,10 +77,26 @@ export function List2<T>({data, columns}: {data: T[]; columns: ColumnDef<T>[]}) 
         <TableBody>
           {table.getRowModel().rows.map((row) => {
             return (
-              <TableRow key={row.id}>
+              <TableRow
+                key={row.id}
+                className=""
+                onClick={() => {
+                  const route = data[0]?.TipoHab
+                    ? `Guest/${row.original.id}/edit`
+                    : `/Bodas/${row.original.id}/Guest`;
+
+                  redirect(route);
+                }}
+              >
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <TableCell key={cell.id} className={`w-[${cell.column.getSize()}px]`}>
+                    <TableCell
+                      key={cell.id}
+                      className={`w-[${cell.column.getSize()}px] ${cell.getValue() ? "cursor-pointer" : ""} `}
+                      onClick={(e) => {
+                        if (!cell.getValue()) e.stopPropagation();
+                      }}
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   );

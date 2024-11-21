@@ -26,7 +26,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export function List2<T>({data, columns}: {data: T[]; columns: ColumnDef<T>[]}) {
+export function List2<T extends Boda | Invitados>({
+  data,
+  columns,
+}: {
+  data: T[];
+  columns: ColumnDef<T>[];
+}) {
   const [filtering, setFiltering] = useState("");
   const [setSorting, setSetSorting] = useState<SortingState>([]);
   const table = useReactTable({
@@ -81,9 +87,10 @@ export function List2<T>({data, columns}: {data: T[]; columns: ColumnDef<T>[]}) 
                 key={row.id}
                 className=""
                 onClick={() => {
-                  const route = data[0]?.TipoHab
-                    ? `Guest/${row.original.id}/edit`
-                    : `/Bodas/${row.original.id}/Guest`;
+                  const route =
+                    "TipoHab" in data[0]
+                      ? `Guest/${row.original.id}/edit`
+                      : `Bodas/${row.original.id}/Guest`;
 
                   redirect(route);
                 }}

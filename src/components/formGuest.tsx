@@ -102,6 +102,7 @@ export default function FormGuest({BodaId, guest}: {BodaId: string; guest?: Invi
             <div>
               <Calendar
                 className="rounded-md border"
+                disabled={{before: new Date()}}
                 mode="range"
                 selected={date}
                 onSelect={(range) => setDate(range)}

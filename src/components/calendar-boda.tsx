@@ -24,9 +24,8 @@ function CalendarBoda({value, setValue}: {value?: Date; setValue: (date: Date) =
       </PopoverTrigger>
       <PopoverContent align="start" className="w-auto p-0">
         <Calendar
-          initialFocus
           required
-          // disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+          disabled={{before: new Date()}}
           mode="single"
           selected={value}
           onSelect={(date) => date && setValue(date)}

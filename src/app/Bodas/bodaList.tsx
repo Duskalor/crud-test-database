@@ -27,6 +27,7 @@ const columns: ColumnDef<Boda>[] = [
     header: "Date",
     accessorKey: "date",
     accessorFn: (boda) => dayjs(boda.eventDate).format("DD MMMM YYYY"),
+    size: 180,
   },
   {
     header: "Actions",
